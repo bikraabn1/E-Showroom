@@ -367,6 +367,7 @@
             this.lblUserCount.TabIndex = 1;
             this.lblUserCount.Text = "0";
             this.lblUserCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblUserCount.Click += new System.EventHandler(this.lblUserCount_Click);
             // 
             // label11
             // 

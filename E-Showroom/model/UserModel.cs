@@ -52,6 +52,17 @@ namespace E_Showroom.model
             return server.queryExecution(query);
         }
 
+        public string getTotalUser()
+        {
+            query = "SELECT COUNT(*) FROM user";
+            DataTable result = server.queryExecution(query);
+
+            if (result != null && result.Rows.Count > 0)
+            {
+                return result.Rows[0][0].ToString();
+            }
+            return "0";
+        }
         
     }
 }
