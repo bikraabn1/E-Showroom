@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
-namespace E_Transport.config
+namespace E_Showroom.config
 {
     internal class Connection: Services
     {

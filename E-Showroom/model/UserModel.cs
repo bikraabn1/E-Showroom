@@ -4,9 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using E_Transport.config;
+using E_Showroom.config;
 
-namespace E_Transport.model
+namespace E_Showroom.model
 {
     internal class UserModel
     {
