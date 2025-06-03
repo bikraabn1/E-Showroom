@@ -20,5 +20,4 @@ C:\Users\hp\source\repos\E-Transport\E-Transport\obj\Debug\E-Transport.csproj.Co
 C:\Users\hp\source\repos\E-Transport\E-Transport\obj\Debug\E-Transp.852646AC.Up2Date
 C:\Users\hp\source\repos\E-Transport\E-Transport\obj\Debug\E-Transport.exe
 C:\Users\hp\source\repos\E-Transport\E-Transport\obj\Debug\E-Transport.pdb
-C:\Users\hp\source\repos\E-Transport\E-Transport\obj\Debug\UTS.view.DistrictView.resources
-C:\Users\hp\source\repos\E-Transport\E-Transport\obj\Debug\UTS.view.VehicleView.resources
+C:\Users\hp\source\repos\E-Transport\E-Transport\obj\Debug\E_Transport.view.Dashboard.resources

@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using E_Transport.config;
+
+namespace E_Transport.model
+{
+    internal class UserModel
+    {
+        private int _user_id;
+        private string _name;
+        private string _username;
+        private string _password;
+
+        Connection server;
+        string query;
+
+        public UserModel()
+        {
+            _user_id = 0;
+            _name = "";
+            _username = "";
+            _password = "";
+
+            this.query = "";
+            this.server = new Connection();
+        }
+
+        public int UserID
+        {
+            set { _user_id = value; }
+        }
+        public string Name
+        {
+            set { _name = value; }
+        }
+        public string UserName
+        {
+            set { _username = value; }
+        }
+        public string TypeID
+        {
+            set { _password = value; }
+        }
+
+        public DataTable getUserDatas()
+        {
+            query = "select * from user";
+            return server.queryExecution(query);
+        }
+
+        
+    }
+}

@@ -4,9 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySqlConnector;
+using MySql.Data.MySqlClient;
 
-namespace UTS.config
+namespace E_Transport.config
 {
     internal class Connection: Services
     {
@@ -14,13 +14,13 @@ namespace UTS.config
         MySqlCommand command;
         MySqlDataAdapter adapter;
 
-        string stringConnection = "server=localhost;port=3306;database=db_e-transport;uid=root;pwd=''";
+        string stringConnection = "server=localhost;port=3306;database=showroom;uid=root;pwd=''";
 
         public Connection()
         {
             this.conn = new MySqlConnection(stringConnection);
             this.command = new MySqlCommand();
-            this.adapter = new MySqlDataAdapter();
+            this.adapter = new MySqlDataAdapter ();
         }
 
         void openConnection()
@@ -30,6 +30,7 @@ namespace UTS.config
                 if (conn.State == ConnectionState.Closed)
                 {
                     conn.Open();
+                    Console.WriteLine("[SUKSES] Koneksi ke database berhasil!");
                 }
             }
             catch (Exception ex)
