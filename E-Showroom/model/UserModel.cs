@@ -41,7 +41,7 @@ namespace E_Showroom.model
         {
             set { _username = value; }
         }
-        public string TypeID
+        public string Password
         {
             set { _password = value; }
         }
@@ -63,6 +63,25 @@ namespace E_Showroom.model
             }
             return "0";
         }
+
+        public int insertUserData()
+        {
+            int result = -1;
+            query = "insert into user(nama, username, password) values('" + _name + "','" + _username + "','" + _password + "')";
+
+            try
+            {
+                result = server.isNotQueryExecution(query);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return result;
+        }
+
+
         
     }
 }

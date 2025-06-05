@@ -189,6 +189,7 @@
             this.button2.Text = "User";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -207,6 +208,7 @@
             this.button1.Text = "Home";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel3
             // 
@@ -367,7 +369,6 @@
             this.lblUserCount.TabIndex = 1;
             this.lblUserCount.Text = "0";
             this.lblUserCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblUserCount.Click += new System.EventHandler(this.lblUserCount_Click);
             // 
             // label11
             // 
@@ -392,7 +393,6 @@
             this.Controls.Add(this.panel1);
             this.Name = "Dashboard";
             this.Text = "Dashboard";
-            this.Load += new System.EventHandler(this.Dashboard_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

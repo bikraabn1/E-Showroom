@@ -73,11 +73,11 @@
     <Compile Include="model\UserModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="view\UserView.cs">
+    <Compile Include="view\UserViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="view\UserView.Designer.cs">
-      <DependentUpon>UserView.cs</DependentUpon>
+    <Compile Include="view\UserViewControl.Designer.cs">
+      <DependentUpon>UserViewControl.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
@@ -92,8 +92,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="view\UserView.resx">
-      <DependentUpon>UserView.cs</DependentUpon>
+    <EmbeddedResource Include="view\UserViewControl.resx">
+      <DependentUpon>UserViewControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
