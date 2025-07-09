@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using E_Showroom.config;
 
 namespace E_Showroom.model
@@ -64,6 +60,15 @@ namespace E_Showroom.model
             return "0";
         }
 
+        public bool LoginUser(string username, string password)
+        {
+            query = $"SELECT 1 FROM user WHERE username='{username}' AND password='{password}'";
+
+            DataTable result = server.queryExecution(query);
+
+            return (result != null && result.Rows.Count > 0);
+        }
+
         public int insertUserData()
         {
             int result = -1;
@@ -81,7 +86,39 @@ namespace E_Showroom.model
             return result;
         }
 
+        public int updateUserData()
+        {
+            int result = -1;
+            query = "update user set nama='" + _name + "', username='" + _username + "', password='" + _password + "' where id_user='" + _user_id + "' ";
 
+            try
+            {
+                result = server.isNotQueryExecution(query);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return result;
+        }
+        
+        public int deleteUserData()
+        {
+            int result = -1;
+            query = "delete from user where id_user='" + _user_id + "' ";
+
+            try
+            {
+                result = server.isNotQueryExecution(query);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return result;
+        }
         
     }
 }

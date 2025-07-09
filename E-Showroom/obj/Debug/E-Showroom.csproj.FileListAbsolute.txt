@@ -15,10 +15,15 @@ C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E-Showroom.csproj.Assem
 C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E-Showroom.csproj.SuggestedBindingRedirects.cache
 C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E-Showroom.exe.config
 C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E_Showroom.Dashboard.resources
+C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E_Showroom.Login.resources
 C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E_Showroom.Properties.Resources.resources
+C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E_Showroom.view.VehicleCategoryView.resources
 C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E_Transport.view.UserControl1.resources
+C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E_Showroom.view.VehicleView.resources
 C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E-Showroom.csproj.GenerateResource.cache
 C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E-Showroom.csproj.CoreCompileInputs.cache
 C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E-Showroom.csproj.Up2Date
 C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E-Showroom.exe
 C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E-Showroom.pdb
+C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E_Showroom.view.ClientView.resources
+C:\Users\hp\source\repos\E-Showroom\E-Showroom\obj\Debug\E_Showroom.view.SalesmentView.resources

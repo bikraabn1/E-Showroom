@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using E_Showroom.model;
+using E_Showroom.view;
 using E_Transport.view;
 
 namespace E_Showroom
@@ -9,7 +10,10 @@ namespace E_Showroom
     public partial class Dashboard : Form
     {
         private UserModel _userModel;
-        private Control[] originalControls; // Simpan controls asli
+        private VehicleModel _vehicleModel;
+        private ClientModel _clientModel;
+        private SaleModel _saleModel;
+        private Control[] originalControls; 
         private bool isDashboardMode = true;
 
         public Dashboard()
@@ -17,15 +21,16 @@ namespace E_Showroom
             InitializeComponent();
             _userModel = new UserModel();
 
-            // Delay save controls sampai form fully loaded
             this.Load += Dashboard_FullyLoaded;
         }
 
         private void Dashboard_FullyLoaded(object sender, EventArgs e)
         {
-            // Simpan controls setelah form fully loaded
             SaveOriginalControls();
             LoadUserCount();
+            LoadVehicleCount();
+            LoadClientCount();
+            LoadSalesmentCount();
         }
 
         private void SaveOriginalControls()
@@ -34,7 +39,6 @@ namespace E_Showroom
             {
                 if (panel3 != null && panel3.Controls.Count > 0)
                 {
-                    // Simpan semua controls asli dari panel3
                     originalControls = new Control[panel3.Controls.Count];
                     for (int i = 0; i < panel3.Controls.Count; i++)
                     {
@@ -43,7 +47,6 @@ namespace E_Showroom
                 }
                 else
                 {
-                    // Jika panel3 kosong, buat array kosong
                     originalControls = new Control[0];
                 }
             }
@@ -52,11 +55,6 @@ namespace E_Showroom
                 MessageBox.Show($"Error saving controls: {ex.Message}");
                 originalControls = new Control[0];
             }
-        }
-
-        private void Dashboard_Load(object sender, EventArgs e)
-        {
-            // Method ini dipanggil otomatis, kosongkan saja atau pindah ke FullyLoaded
         }
 
         void LoadUserCount()
@@ -70,7 +68,6 @@ namespace E_Showroom
 
                 string userCount = _userModel.getTotalUser();
 
-                // Cari lblUserCount dengan lebih aman
                 Label lblUserCount = FindLabelUserCount();
                 if (lblUserCount != null)
                 {
@@ -78,7 +75,6 @@ namespace E_Showroom
                 }
                 else
                 {
-                    // Debug: tampilkan pesan jika lblUserCount tidak ditemukan
                     MessageBox.Show("lblUserCount not found!");
                 }
             }
@@ -86,11 +82,106 @@ namespace E_Showroom
             {
                 MessageBox.Show($"Error loading user count: {ex.Message}");
 
-                // Tetap coba set lblUserCount ke "0" jika ada error
                 Label lblUserCount = FindLabelUserCount();
                 if (lblUserCount != null)
                 {
                     lblUserCount.Text = "0";
+                }
+            }
+        }
+        void LoadVehicleCount()
+        {
+            try
+            {
+                if (_vehicleModel == null)
+                {
+                    _vehicleModel = new VehicleModel();
+                }
+
+                string vehicleCount = _vehicleModel.getTotalVehicle();
+
+                Label lblVehicleCount = FindLabelVehicleCount();
+                if (lblVehicleCount != null)
+                {
+                    lblVehicleCount.Text = vehicleCount ?? "0";
+                }
+                else
+                {
+                    MessageBox.Show("lblVehicleCount not found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading vehicle count: {ex.Message}");
+
+                Label lblVehicleCount = FindLabelVehicleCount();
+                if (lblVehicleCount != null)
+                {
+                    lblVehicleCount.Text = "0";
+                }
+            }
+        }
+        void LoadClientCount()
+        {
+            try
+            {
+                if (_clientModel == null)
+                {
+                    _clientModel = new ClientModel();
+                }
+
+                string clientCount = _clientModel.getTotalClient();
+
+                Label lblClientCount = FindLabelClientCount();
+                if (lblClientCount != null)
+                {
+                    lblClientCount.Text = clientCount ?? "0";
+                }
+                else
+                {
+                    MessageBox.Show("lblPelangganCount not found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading client count: {ex.Message}");
+
+                Label lblClientCount = FindLabelVehicleCount();
+                if (lblClientCount != null)
+                {
+                    lblClientCount.Text = "0";
+                }
+            }
+        }
+        void LoadSalesmentCount()
+        {
+            try
+            {
+                if (_saleModel == null)
+                {
+                    _saleModel = new SaleModel();
+                }
+
+                string salesmentCount = _saleModel.getJumlahPenjualan();
+
+                Label lblSalesmentCount = FindLabelSalesmentCount();
+                if (lblSalesmentCount != null)
+                {
+                    lblSalesmentCount.Text = salesmentCount ?? "0";
+                }
+                else
+                {
+                    MessageBox.Show("lblPenjualanCount not found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading salesment count: {ex.Message}");
+
+                Label lblSalesmentCount = FindLabelSalesmentCount();
+                if (lblSalesmentCount != null)
+                {
+                    lblSalesmentCount.Text = "0";
                 }
             }
         }
@@ -99,7 +190,6 @@ namespace E_Showroom
         {
             try
             {
-                // Method 1: Cari di controls asli (jika ada)
                 if (originalControls != null && originalControls.Length > 0)
                 {
                     foreach (Control control in originalControls)
@@ -111,7 +201,6 @@ namespace E_Showroom
                     }
                 }
 
-                // Method 2: Cari di panel3 yang aktif
                 if (panel3 != null && panel3.Controls.Count > 0)
                 {
                     foreach (Control control in panel3.Controls)
@@ -123,7 +212,6 @@ namespace E_Showroom
                     }
                 }
 
-                // Method 3: Cari di seluruh form (fallback)
                 Control[] allControls = this.Controls.Find("lblUserCount", true);
                 if (allControls.Length > 0 && allControls[0] is Label)
                 {
@@ -139,9 +227,127 @@ namespace E_Showroom
             }
         }
 
-        private void lblUserCount_Click(object sender, EventArgs e)
+        private Label FindLabelVehicleCount()
         {
+            try
+            {
+                if (originalControls != null && originalControls.Length > 0)
+                {
+                    foreach (Control control in originalControls)
+                    {
+                        if (control != null && control is Label && control.Name == "lblKendaraanCount")
+                        {
+                            return (Label)control;
+                        }
+                    }
+                }
+
+                if (panel3 != null && panel3.Controls.Count > 0)
+                {
+                    foreach (Control control in panel3.Controls)
+                    {
+                        if (control != null && control is Label && control.Name == "lblKendaraanCount")
+                        {
+                            return (Label)control;
+                        }
+                    }
+                }
+
+                Control[] allControls = this.Controls.Find("lblKendaraanCount", true);
+                if (allControls.Length > 0 && allControls[0] is Label)
+                {
+                    return (Label)allControls[0];
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error finding lblKendaraanCount: {ex.Message}");
+                return null;
+            }
         }
+        private Label FindLabelClientCount()
+        {
+            try
+            {
+                if (originalControls != null && originalControls.Length > 0)
+                {
+                    foreach (Control control in originalControls)
+                    {
+                        if (control != null && control is Label && control.Name == "lblPelangganCount")
+                        {
+                            return (Label)control;
+                        }
+                    }
+                }
+
+                if (panel3 != null && panel3.Controls.Count > 0)
+                {
+                    foreach (Control control in panel3.Controls)
+                    {
+                        if (control != null && control is Label && control.Name == "lblPelangganCount")
+                        {
+                            return (Label)control;
+                        }
+                    }
+                }
+
+                Control[] allControls = this.Controls.Find("lblPelangganCount", true);
+                if (allControls.Length > 0 && allControls[0] is Label)
+                {
+                    return (Label)allControls[0];
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error finding lblKendaraanCount: {ex.Message}");
+                return null;
+            }
+        }
+        private Label FindLabelSalesmentCount()
+        {
+            try
+            {
+                if (originalControls != null && originalControls.Length > 0)
+                {
+                    foreach (Control control in originalControls)
+                    {
+                        if (control != null && control is Label && control.Name == "lblPenjualanCount")
+                        {
+                            return (Label)control;
+                        }
+                    }
+                }
+
+                if (panel3 != null && panel3.Controls.Count > 0)
+                {
+                    foreach (Control control in panel3.Controls)
+                    {
+                        if (control != null && control is Label && control.Name == "lblPenjualanCount")
+                        {
+                            return (Label)control;
+                        }
+                    }
+                }
+
+                Control[] allControls = this.Controls.Find("lblPenjualanCount", true);
+                if (allControls.Length > 0 && allControls[0] is Label)
+                {
+                    return (Label)allControls[0];
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error finding lblPenjualanCount: {ex.Message}");
+                return null;
+            }
+        }
+
 
         private void LoadUserControl(UserControl control)
         {
@@ -169,7 +375,6 @@ namespace E_Showroom
                 {
                     panel3.Controls.Clear();
 
-                    // Restore semua controls asli ke panel3
                     if (originalControls != null && originalControls.Length > 0)
                     {
                         foreach (Control control in originalControls)
@@ -181,7 +386,8 @@ namespace E_Showroom
                         }
                     }
 
-                    LoadUserCount(); // Refresh user count
+                    LoadUserCount(); 
+                    LoadVehicleCount(); 
                     isDashboardMode = true;
                 }
             }
@@ -195,15 +401,14 @@ namespace E_Showroom
         {
             try
             {
-                // Tombol Dashboard - kembali ke dashboard
                 if (!isDashboardMode)
                 {
                     RestoreDashboard();
                 }
                 else
                 {
-                    // Jika sudah di dashboard, refresh user count saja
                     LoadUserCount();
+                    LoadVehicleCount();
                 }
             }
             catch (Exception ex)
@@ -216,7 +421,6 @@ namespace E_Showroom
         {
             try
             {
-                // Tombol User Management
                 LoadUserControl(new UserControl1());
             }
             catch (Exception ex)
@@ -224,9 +428,52 @@ namespace E_Showroom
                 MessageBox.Show($"Error in button2_Click: {ex.Message}");
             }
         }
-
-        private void panel4_Paint(object sender, PaintEventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
+            try
+            {
+                LoadUserControl(new VehicleView());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error in button2_Click: {ex.Message}");
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadUserControl(new VehicleCategoryView());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error in button2_Click: {ex.Message}");
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadUserControl(new ClientView());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error in button2_Click: {ex.Message}");
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadUserControl(new SalesmentView());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error in button2_Click: {ex.Message}");
+            }
         }
     }
 }

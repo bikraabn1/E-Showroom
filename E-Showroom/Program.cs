@@ -14,7 +14,12 @@ namespace E_Showroom
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Dashboard());
+            Login loginForm = new Login();
+
+            if (loginForm.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new Dashboard());
+            }
         }
     }
 }
