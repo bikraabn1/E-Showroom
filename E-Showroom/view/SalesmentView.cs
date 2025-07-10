@@ -46,8 +46,8 @@ namespace E_Showroom.view
             comboBox2.SelectedValue = -1;
             comboBox3.SelectedValue = -1;
             comboBox4.SelectedItem = -1;
-            textBox2.Clear();
             _model.IdPenjualan = "-1";
+            textBox2.Clear();
         }
 
         void loadDataGridData()

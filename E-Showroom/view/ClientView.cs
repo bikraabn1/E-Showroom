@@ -14,7 +14,6 @@ namespace E_Showroom.view
             InitializeComponent();
             _model = new ClientModel();
             loadDataGridData();
-            loadUserList();
         }
 
         void loadDataGridData()
@@ -26,22 +25,6 @@ namespace E_Showroom.view
             tabelPelanggan.RowPostPaint += (sender, e) => {
                 tabelPelanggan.Rows[e.RowIndex].Cells["No"].Value = e.RowIndex + 1;
             };
-        }
-        void loadUserList()
-        {
-            try
-            {
-                comboBox1.Items.Clear();
-                DataTable dt = _model.getUserDataList();
-                comboBox1.DataSource = dt;
-                comboBox1.DisplayMember = "username";
-                comboBox1.ValueMember = "id_user";
-                comboBox1.SelectedValue = -1;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Gagal memuat data kategori: " + ex.Message);
-            }
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -59,11 +42,26 @@ namespace E_Showroom.view
                 return;
             }
 
+            UserCheckResult result = _model.getUserDataByUsername(textBox5.Text);
+
+            switch (result.Status)
+            {
+                case UserStatus.NotFound:
+                    MessageBox.Show("Username tidak ditemukan.", "Input Tidak Valid", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBox5.Focus();
+                    return;
+                case UserStatus.AlreadyUsed:
+                    MessageBox.Show("Username sudah digunakan", "Input Tidak Valid", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBox5.Focus();
+                    return;
+            }
+
+
             _model.Name = textBox1.Text;
             _model.KTP = no_ktp.ToString();
             _model.Telepon = telepon.ToString();
-            _model.Address = textBox4.Text;
-            _model.UserID = Convert.ToInt32(comboBox1.SelectedValue);
+            _model.Address = textBox4.Text; 
+            _model.UserID = result.UserId;
             _model.insertClientData();
             Clear();
             loadDataGridData();
@@ -71,7 +69,6 @@ namespace E_Showroom.view
 
         void Clear()
         {
-            comboBox1.SelectedValue = -1;
             textBox1.Clear();
             textBox2.Clear();
             textBox3.Clear();
@@ -92,7 +89,6 @@ namespace E_Showroom.view
 
                 if (row.Cells["id_user"].Value != null)
                 {
-                    comboBox1.SelectedValue = row.Cells["id_user"].Value;
                 }
 
                 if (row.Cells["id_pelanggan"].Value != null &&
@@ -125,10 +121,14 @@ namespace E_Showroom.view
             _model.KTP = textBox2.Text;
             _model.Telepon = textBox3.Text;
             _model.Address = textBox4.Text;
-            _model.UserID = Convert.ToInt32(comboBox1.SelectedValue);
             _model.updateClientData();
             Clear();
             loadDataGridData();
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

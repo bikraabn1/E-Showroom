@@ -4,6 +4,19 @@ using E_Showroom.config;
 
 namespace E_Showroom.model
 {
+
+    public enum UserStatus
+    {
+        OK,
+        NotFound,
+        AlreadyUsed
+    }
+
+    public class UserCheckResult
+    {
+        public UserStatus Status { get; set; }
+        public int UserId { get; set; }
+    }
     internal class ClientModel
     {
         private int _client_id;
@@ -76,10 +89,27 @@ namespace E_Showroom.model
             return server.queryExecution(query);
         }
 
-        public DataTable getUserDataByID(int id)
+        public UserCheckResult getUserDataByUsername(string username)
         {
-            query = "select * from user where id = " + id + "";
-            return server.queryExecution(query);
+            string query = "select username, id_user from user where username = '" + username + "'";
+            DataTable result = server.queryExecution(query);
+
+            if (result.Rows.Count == 0)
+            {
+                return new UserCheckResult { Status = UserStatus.NotFound };
+            }
+
+            int userId = Convert.ToInt32(result.Rows[0]["id_user"]);
+            string checkQuery = "SELECT 1 FROM pelanggan WHERE id_user = '" + userId + "'";
+            DataTable checkIsUserExist = server.queryExecution(checkQuery);
+
+            if (checkIsUserExist.Rows.Count > 0)
+            {
+                return new UserCheckResult { Status = UserStatus.AlreadyUsed };
+            }
+
+            return new UserCheckResult { Status = UserStatus.OK, UserId = userId };
+
         }
 
         public string getTotalClient()
